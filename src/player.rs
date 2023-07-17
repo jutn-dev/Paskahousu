@@ -10,7 +10,7 @@ pub struct player {
 
 
 impl player {
-    fn has_card(&self, card: &Card) -> bool {
+    pub fn has_card(&self, card: &Card) -> bool {
         for players_card in self.cards.iter() {
             if players_card == card {
                 return true;
