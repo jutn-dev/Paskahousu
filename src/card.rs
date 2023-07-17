@@ -1,3 +1,4 @@
+#[derive(PartialEq)]
 pub struct Card {
     num: String,
     suit: String,
