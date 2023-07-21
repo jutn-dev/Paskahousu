@@ -24,6 +24,7 @@ impl Game {
 
         loop {
             println!("{:?}", self.players);
+            println!("{:?}", played_cards);
             println!("select a card (1-10, j, q, k, a),(s,c,d,h)");
             let mut buf = String::new();
             std::io::stdin().read_line(&mut buf).unwrap();
@@ -33,6 +34,9 @@ impl Game {
             if self.check_move(&card) {
                 Self::use_card(card, &mut played_cards);
                 Self::new_cards(&mut self.players[0], &mut cards);
+            }
+            else {
+                println!("you can't do that!")
             }
         }
     }
