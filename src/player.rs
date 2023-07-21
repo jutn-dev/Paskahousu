@@ -1,7 +1,7 @@
 use crate::card::Card;
 
-#[derive(PartialEq)]
-pub struct player {
+#[derive(Debug, PartialEq, Clone)]
+pub struct Player {
     pub cards: Vec<Card>,
 }
 
@@ -9,7 +9,13 @@ pub struct player {
 
 
 
-impl player {
+impl Player {
+    
+    pub fn new() -> Player{
+        Player { cards: vec![] }
+    }
+
+    //check if player has a specific card
     pub fn has_card(&self, card: &Card) -> bool {
         for players_card in self.cards.iter() {
             if players_card == card {

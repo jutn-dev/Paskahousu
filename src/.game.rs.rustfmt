@@ -1,0 +1,98 @@
+use crate::card::Card;
+use crate::player::Player;
+
+pub struct Game {
+    players: Vec<Player>,
+}
+
+impl Game {
+    pub fn new() -> Game {
+        Game { players: vec![] }
+    }
+
+    pub fn game_loop(&self) { 
+        let mut cards: Vec<Card>;
+        cards = Self::return_52_cards();
+        loop {
+            println!("select a card (1-10, j, q, k, a)(s,c,d,h)");
+            let mut card = String::new();
+            std::io::stdin().read_line(&mut card);
+
+            if self.check_move(&Card::new("1".to_string(), "s".to_string())) {
+                Self::use_card(Card::new("1".to_string(), "s".to_string()), &mut cards);
+            }
+        }
+    }
+
+    fn use_card(card: Card, cards: &mut Vec<Card>) {
+        cards.push(card);
+    }
+
+    ///# checks if move is valid
+    ///
+    ///returns true if move is valid
+    fn check_move(&self, card: &Card) -> bool {
+        if self.players[0].has_card(card) {
+            return false;
+        }
+        true
+    }
+
+    ///returns all cards in order
+    fn return_52_cards() -> Vec<Card> {
+        let mut cards: Vec<Card> = vec![];
+        for j in 1..4 {
+            match j {
+                1 => {
+                    for i in 1..14 {
+                        match i {
+                            11 => cards.push(Card::new(i.to_string(), "s".to_string())),
+                            12 => cards.push(Card::new(i.to_string(), "s".to_string())),
+                            13 => cards.push(Card::new(i.to_string(), "s".to_string())),
+                            14 => cards.push(Card::new(i.to_string(), "s".to_string())),
+                            _ => cards.push(Card::new(i.to_string(), "s".to_string())),
+                        }
+                    }
+                }
+
+                2 => {
+                    for i in 1..14 {
+                        match i {
+                            11 => cards.push(Card::new(i.to_string(), "c".to_string())),
+                            12 => cards.push(Card::new(i.to_string(), "c".to_string())),
+                            13 => cards.push(Card::new(i.to_string(), "c".to_string())),
+                            14 => cards.push(Card::new(i.to_string(), "c".to_string())),
+                            _ => cards.push(Card::new(i.to_string(), "c".to_string())),
+                        }
+                    }
+                }
+
+                3 => {
+                    for i in 1..14 {
+                        match i {
+                            11 => cards.push(Card::new(i.to_string(), "d".to_string())),
+                            12 => cards.push(Card::new(i.to_string(), "d".to_string())),
+                            13 => cards.push(Card::new(i.to_string(), "d".to_string())),
+                            14 => cards.push(Card::new(i.to_string(), "d".to_string())),
+                            _ => cards.push(Card::new(i.to_string(), "d".to_string())),
+                        }
+                    }
+                }
+
+                4 => {
+                    for i in 1..14 {
+                        match i {
+                            11 => cards.push(Card::new(i.to_string(), "h".to_string())),
+                            12 => cards.push(Card::new(i.to_string(), "h".to_string())),
+                            13 => cards.push(Card::new(i.to_string(), "h".to_string())),
+                            14 => cards.push(Card::new(i.to_string(), "h".to_string())),
+                            _ => cards.push(Card::new(i.to_string(), "h".to_string())),
+                        }
+                    }
+                }
+                _ => (),
+            }
+        }
+        cards
+    }
+}
