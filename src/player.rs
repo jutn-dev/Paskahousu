@@ -43,5 +43,6 @@ impl Player {
         for card in &self.cards {
             print!(" {}{}, ", card.num, card.suit);
         }
+        print!("\n");
     }
 }
