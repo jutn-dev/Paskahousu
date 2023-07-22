@@ -25,7 +25,7 @@ impl Game {
         Self::new_cards(&mut self.players[0], &mut cards);
 
         loop {
-            println!("{:?}", self.players);
+            self.players[0].print_cards();
             println!("{:?}", played_cards);
             println!("select a card (1-10, j, q, k, a),(s,c,d,h)");
             let mut buf = String::new();

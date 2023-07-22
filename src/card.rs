@@ -8,9 +8,9 @@
 #[derive(Debug, PartialEq, Clone)]
 pub struct Card {
     /// `num` is 1-10 or jack(j), queen(q) or king(k).
-    num: String,
+    pub num: String,
     /// `Suit` is spade(s), club(c), heart(h) or diamond(d).
-    suit: String,
+    pub suit: String,
 }
 
 impl Card {

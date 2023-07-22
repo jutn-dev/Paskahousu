@@ -39,4 +39,9 @@ impl Player {
     self.cards.push(card);
 
     }
+    pub fn print_cards(&self){
+        for card in &self.cards {
+            print!(" {}{}, ", card.num, card.suit);
+        }
+    }
 }
