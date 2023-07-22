@@ -2,6 +2,8 @@ use crate::card::Card;
 use crate::player::Player;
 use rand::Rng;
 
+mod rules;
+
 pub struct Game {
     players: Vec<Player>,
 }
@@ -16,7 +18,7 @@ impl Game {
 
         let mut cards: Vec<Card>;
         let mut played_cards: Vec<Card> = vec![];
-        cards = Self::return_52_cards();
+        cards = Self::return_all_cards();
         self.players.push(Player::new()); 
 
         //TODO move to init function when you make it
@@ -28,16 +30,17 @@ impl Game {
             println!("select a card (1-10, j, q, k, a),(s,c,d,h)");
             let mut buf = String::new();
             std::io::stdin().read_line(&mut buf).unwrap();
-            let buf_vec: Vec<&str> = buf.split(",").collect();
+            let buf_vec: Vec<&str> = buf.trim().split(",").collect();
             let card = Card::new(buf_vec[0].to_string(), buf_vec[1].to_string());
 
             if self.check_move(&card) {
-                Self::use_card(card, &mut played_cards);
+                Self::use_card(card, &mut played_cards, &mut self.players[0]);
                 Self::new_cards(&mut self.players[0], &mut cards);
             }
             else {
                 println!("you can't do that!")
             }
+           
         }
     }
 
@@ -50,28 +53,24 @@ impl Game {
             let mut rng = rand::thread_rng();
             let random_card = rng.gen_range(0..(cards.len() - 1));
             //adds random card to player
-            player.cards.push(cards[random_card].clone());
+            player.add_card(cards[random_card].clone());
             //removes the random card from cards
             cards.remove(random_card);
         }
     }
 
-    fn use_card(card: Card, cards: &mut Vec<Card>) {
-        cards.push(card);
+    fn use_card(card: Card, cards: &mut Vec<Card>, player: &mut Player) {
+        cards.push(card.clone());
+        player.remove_card(card.clone())
     }
 
     ///# checks if move is valid
     ///
     ///returns true if move is valid
-    fn check_move(&self, card: &Card) -> bool {
-        if self.players[0].has_card(card) {
-            return false;
-        }
-        true
-    }
+
 
     /// # returns all cards in order
-    fn return_52_cards() -> Vec<Card> {
+    fn return_all_cards() -> Vec<Card> {
         let mut cards: Vec<Card> = vec![];
         for j in 1..4 {
             match j {
