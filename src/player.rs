@@ -24,6 +24,11 @@ impl Player {
         }
         false
     }
+
+
+    /// # Remove Card
+    ///
+    /// This function adds specific card to players cards
     pub fn remove_card(&mut self, card: Card){
         let mut index = 0;
         for players_card in self.cards.iter() {
@@ -34,11 +39,17 @@ impl Player {
             index += 1;
         }
     }
-
+    /// # Add Card
+    ///
+    /// this function adds specific card to players cards
     pub fn add_card(&mut self, card: Card){
     self.cards.push(card);
 
     }
+
+    /// # Print Cards
+    ///
+    /// print_cards prints all player's cards to stdout
     pub fn print_cards(&self){
         for card in &self.cards {
             print!(" {}{}, ", card.num, card.suit);
