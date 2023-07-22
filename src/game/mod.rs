@@ -25,15 +25,18 @@ impl Game {
         Self::new_cards(&mut self.players[0], &mut cards);
 
         loop {
+
             self.players[0].print_cards();
             println!("{:?}", played_cards);
+            
+            //get user card
             println!("select a card (1-10, j, q, k, a),(s,c,d,h)");
             let mut buf = String::new();
             std::io::stdin().read_line(&mut buf).unwrap();
             let buf_vec: Vec<&str> = buf.trim().split(",").collect();
             let card = Card::new(buf_vec[0].to_string(), buf_vec[1].to_string());
 
-            if self.check_move(&card) {
+            if self.check_move(&card, &played_cards) {
                 Self::use_card(card, &mut played_cards, &mut self.players[0]);
                 Self::new_cards(&mut self.players[0], &mut cards);
             }
