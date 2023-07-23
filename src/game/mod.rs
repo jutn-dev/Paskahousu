@@ -34,6 +34,11 @@ impl Game {
             let mut buf = String::new();
             std::io::stdin().read_line(&mut buf).unwrap();
             let buf_vec: Vec<&str> = buf.trim().split(",").collect();
+            
+            if buf_vec.len() < 2 {
+                println!("syntax error");
+                continue;
+            }
             let card = Card::new(buf_vec[0].to_string(), buf_vec[1].to_string());
 
             if self.check_move(&card, &played_cards) {
@@ -41,10 +46,16 @@ impl Game {
                 Self::new_cards(&mut self.players[0], &mut cards);
             }
             else {
-                println!("you can't do that!")
+                println!("you can't do that!");
+                continue;
             }
            
         }
+    }
+        
+    fn get_user_card()
+    {
+
     }
 
     fn new_cards(player: &mut Player, cards: &mut Vec<Card>) {

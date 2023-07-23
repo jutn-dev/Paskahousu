@@ -8,9 +8,9 @@ impl Game {
         }
 
         //TODO
-        if cards.last().unwrap().num == "" {
+        //if cards.last().unwrap().num == "" {
 
-        }
+        //}
         
 
 
