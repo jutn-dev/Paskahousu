@@ -30,12 +30,14 @@ impl Game {
 
             if let Some(card) = card {
                 match self.check_move(&card, &played_cards) {
-                    Err(_) => println!("you can't do that"),
-                    Ok(_) =>{
-                
-                    Self::use_card(card, &mut played_cards, &mut self.players[0]);
-                    Self::new_cards(&mut self.players[0], &mut cards);
-                }  
+                    Err(rules::Rules::NoSevenUsed) => println!("no seven used yet"),
+                    Err(rules::Rules::NoOverSevenToEmpty) => println!("no card larger than seven can be used"),
+                    Err(rules::Rules::CardTooSmall) => println!("Card too small"),
+                    Err(rules::Rules::PlayerDoesntHaveCard) => println!("you don't have that card"),
+                    Ok(_) => {
+                        Self::use_card(card, &mut played_cards, &mut self.players[0]);
+                        Self::new_cards(&mut self.players[0], &mut cards);
+                    }
                 }
             }
         }
