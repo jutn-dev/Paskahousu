@@ -39,7 +39,7 @@ impl Game {
                 println!("syntax error");
                 continue;
             }
-            let card = Card::new(buf_vec[0].to_string(), buf_vec[1].to_string());
+            let card = Card::new(buf_vec[0].parse().unwrap(), buf_vec[1].to_string());
 
             if self.check_move(&card, &played_cards) {
                 Self::use_card(card, &mut played_cards, &mut self.players[0]);
@@ -89,50 +89,23 @@ impl Game {
         for j in 1..4 {
             match j {
                 1 => {
-                    for i in 1..14 {
-                        match i {
-                            11 => cards.push(Card::new("j".to_string(), "s".to_string())),
-                            12 => cards.push(Card::new("q".to_string(), "s".to_string())),
-                            13 => cards.push(Card::new("k".to_string(), "s".to_string())),
-                            14 => cards.push(Card::new("a".to_string(), "s".to_string())),
-                            _ => cards.push(Card::new(i.to_string(), "s".to_string())),
-                        }
+                    for i in 1..13 {
+                        cards.push(Card::new(i, "s".to_string()));
                     }
                 }
-
                 2 => {
-                    for i in 1..14 {
-                        match i {
-                            11 => cards.push(Card::new("j".to_string(), "c".to_string())),
-                            12 => cards.push(Card::new("q".to_string(), "c".to_string())),
-                            13 => cards.push(Card::new("k".to_string(), "c".to_string())),
-                            14 => cards.push(Card::new("a".to_string(), "c".to_string())),
-                            _ => cards.push(Card::new(i.to_string(), "c".to_string())),
-                        }
+                    for i in 1..13 {
+                        cards.push(Card::new(i, "s".to_string()));
                     }
                 }
-
                 3 => {
-                    for i in 1..14 {
-                        match i {
-                            11 => cards.push(Card::new("j".to_string(), "d".to_string())),
-                            12 => cards.push(Card::new("q".to_string(), "d".to_string())),
-                            13 => cards.push(Card::new("k".to_string(), "d".to_string())),
-                            14 => cards.push(Card::new("a".to_string(), "d".to_string())),
-                            _ => cards.push(Card::new(i.to_string(), "d".to_string())),
-                        }
+                    for i in 1..13 {
+                        cards.push(Card::new(i, "s".to_string()));
                     }
                 }
-
                 4 => {
-                    for i in 1..14 {
-                        match i {
-                            11 => cards.push(Card::new("j".to_string(), "h".to_string())),
-                            12 => cards.push(Card::new("q".to_string(), "h".to_string())),
-                            13 => cards.push(Card::new("k".to_string(), "h".to_string())),
-                            14 => cards.push(Card::new("a".to_string(), "h".to_string())),
-                            _ => cards.push(Card::new(i.to_string(), "h".to_string())),
-                        }
+                    for i in 1..13 {
+                        cards.push(Card::new(i, "s".to_string()));
                     }
                 }
                 _ => (),
