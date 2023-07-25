@@ -1,7 +1,7 @@
 use crate::game::*;
 use crate::card::*;
 
-pub enum Ruules {
+pub enum Rules {
     PlayerDoesntHaveCard,
     CardTooSmall,
     NoSevenUsed,
@@ -10,10 +10,10 @@ pub enum Ruules {
 
 
 impl Game {
-    pub(super) fn check_move(&self, card: &Card, cards: &Vec<Card>) -> Result<(), Ruules> {
+    pub(super) fn check_move(&self, card: &Card, cards: &Vec<Card>) -> Result<(), Rules> {
         
         if !self.players[0].has_card(card) {
-            return Err(Ruules::PlayerDoesntHaveCard);
+            return Err(Rules::PlayerDoesntHaveCard);
         }
         if cards.is_empty() /*&& card.num >! 10*/{
             return Ok(());
@@ -23,12 +23,12 @@ impl Game {
         
         //card too small
         if top_card.num > card.num && (card.num != 2 || card.num != 1) {
-            return Err(Ruules::CardTooSmall);
+            return Err(Rules::CardTooSmall);
         }
         
         //cant use picture cards before seven
         if top_card.num < 7 && (card.num > 10 || card.num == 1) {
-            return Err(Ruules::NoSevenUsed)
+            return Err(Rules::NoSevenUsed)
         }
 
         
