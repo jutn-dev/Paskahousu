@@ -1,6 +1,7 @@
 # Paskahousu
 
-# WARNING: CURRENTLY DOES NOT WORK!
+## currently only works as single player
 
 Paskahousu a Finnish card game
+
 
