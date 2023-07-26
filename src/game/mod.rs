@@ -6,11 +6,15 @@ mod rules;
 
 pub struct Game {
     players: Vec<Player>,
+    turn: usize,
 }
 
 impl Game {
     pub fn new() -> Game {
-        Game { players: vec![] }
+        Game {
+            players: vec![],
+            turn: 0,
+        }
     }
 
     pub fn game_loop(&mut self) {
@@ -23,7 +27,8 @@ impl Game {
         Self::new_cards(&mut self.players[0], &mut cards);
 
         loop {
-            self.players[0].print_cards();
+            println!("player {}'s turn", self.turn);
+            self.players[self.turn].print_cards();
             println!("{:?}", played_cards);
             println!("{:?}", played_cards.is_empty());
             let card = Self::get_user_card();
@@ -31,18 +36,36 @@ impl Game {
             if let Some(card) = card {
                 match self.check_move(&card, &played_cards) {
                     Err(rules::Rules::NoSevenUsed) => println!("no seven used yet"),
-                    Err(rules::Rules::NoOverSevenToEmpty) => println!("no card larger than seven can be used"),
+                    Err(rules::Rules::NoOverSevenToEmpty) => {
+                        println!("no card larger than seven can be used")
+                    }
                     Err(rules::Rules::CardTooSmall) => println!("Card too small"),
                     Err(rules::Rules::PlayerDoesntHaveCard) => println!("you don't have that card"),
                     Ok(_) => {
-                        Self::use_card(card, &mut played_cards, &mut self.players[0]);
-                        Self::new_cards(&mut self.players[0], &mut cards);
+                        Self::use_card(card, &mut played_cards, &mut self.players[self.turn]);
+                        Self::new_cards(&mut self.players[self.turn], &mut cards);
+                        self.next_turn();
                     }
                 }
             }
         }
     }
 
+
+    fn next_turn(&mut self){
+        if self.turn + 1 == self.players.len()
+        {
+            self.turn = 0;
+        }
+        else {
+            self.turn += 1;
+        }
+    }
+
+
+    /// # Get user card
+    ///
+    /// this function gets user typed card
     fn get_user_card() -> Option<Card> {
         println!("select a card (1-10, j, q, k, a),(s,c,d,h)");
         let mut buf = String::new();
@@ -59,6 +82,9 @@ impl Game {
         ))
     }
 
+    ///new cards
+    ///
+    ///gives new cards to player
     fn new_cards(player: &mut Player, cards: &mut Vec<Card>) {
         loop {
             //if player has more than 5 card dont take a card
