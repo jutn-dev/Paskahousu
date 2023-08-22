@@ -52,6 +52,12 @@ impl Game {
     }
 
 
+    fn clear_deck(cards: &mut Vec<Card>){
+        while !cards.is_empty() { 
+            cards.pop();
+        }
+    }
+
     fn next_turn(&mut self){
         if self.turn + 1 == self.players.len()
         {
