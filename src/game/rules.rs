@@ -51,4 +51,17 @@ impl Game {
         return Ok(());
         
         }
+    pub(super) fn can_clear(&self,card: &Card, cards: &Vec<Card>) -> bool {
+      
+        let top_card = cards.last().unwrap();
+        if top_card.num < 11 && card.num == 10{
+            return true;
+        }
+        if top_card.num > 10 && card.num == 1 {
+            return true;
+        }
+        return false;
+    }
 }
+
+
