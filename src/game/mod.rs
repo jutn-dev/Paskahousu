@@ -42,8 +42,14 @@ impl Game {
                     Err(rules::Rules::CardTooSmall) => println!("Card too small"),
                     Err(rules::Rules::PlayerDoesntHaveCard) => println!("you don't have that card"),
                     Ok(_) => {
-                        Self::use_card(card, &mut played_cards, &mut self.players[self.turn]);
+
+                        Self::use_card(&card, &mut played_cards, &mut self.players[self.turn]);
                         Self::new_cards(&mut self.players[self.turn], &mut cards);
+
+                        if self.can_clear(&card, &played_cards){
+                            Self::clear_deck(&mut played_cards);
+                        }
+
                         self.next_turn();
                     }
                 }
@@ -51,6 +57,12 @@ impl Game {
         }
     }
 
+
+    fn clear_deck(cards: &mut Vec<Card>){
+        while !cards.is_empty() { 
+            cards.pop();
+        }
+    }
 
     fn next_turn(&mut self){
         if self.turn + 1 == self.players.len()
@@ -67,7 +79,7 @@ impl Game {
     ///
     /// this function gets user typed card
     fn get_user_card() -> Option<Card> {
-        println!("select a card (1-10, j, q, k, a),(s,c,d,h)");
+        println!("select a card (1-13),(s,c,d,h)");
         let mut buf = String::new();
         std::io::stdin().read_line(&mut buf).unwrap();
         let buf_vec: Vec<&str> = buf.trim().split(",").collect();
@@ -100,7 +112,7 @@ impl Game {
         }
     }
 
-    fn use_card(card: Card, cards: &mut Vec<Card>, player: &mut Player) {
+    fn use_card(card: &Card, cards: &mut Vec<Card>, player: &mut Player) {
         cards.push(card.clone());
         player.remove_card(card.clone())
     }
