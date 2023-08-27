@@ -10,7 +10,7 @@ pub struct Player {
     pub cards: Vec<Card>,
 }
 
-pub fn create_player_cards(
+pub fn create_player_ui_cards(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     mut texture_atlas: ResMut<Assets<TextureAtlas>>,
