@@ -1,3 +1,13 @@
+use bevy::prelude::*;
+
+
+
+
+#[derive(Component, Debug, Clone)]
+pub struct UICard{
+    pub card: Card,
+}
+
 
 ///# Card
 ///
@@ -21,3 +31,7 @@ impl Card {
         }
     }
 }
+
+
+
+

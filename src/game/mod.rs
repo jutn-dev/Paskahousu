@@ -4,6 +4,7 @@ use rand::Rng;
 
 mod rules;
 
+
 pub struct Game {
     players: Vec<Player>,
     turn: usize,
@@ -15,6 +16,14 @@ impl Game {
             players: vec![],
             turn: 0,
         }
+    }
+    
+    pub fn init_game(&mut self){
+        let mut cards: Vec<Card>;
+        let mut played_cards: Vec<Card> = vec![];
+        cards = Self::return_all_cards();
+        self.players.push(Player::new());
+
     }
 
     pub fn game_loop(&mut self) {

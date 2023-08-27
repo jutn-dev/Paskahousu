@@ -1,4 +1,5 @@
 mod card;
+mod UICard;
 mod game;
 mod player;
 use bevy::prelude::*;
@@ -37,6 +38,7 @@ fn setup(
     asset_server: Res<AssetServer>,
     mut texture_atlas: ResMut<Assets<TextureAtlas>>,
 ) {
+    //setuping bevy
     let mut camera = Camera2dBundle::default();
     camera.projection.scaling_mode = ScalingMode::AutoMax {
         max_width: 2160.0,
@@ -57,7 +59,7 @@ fn setup(
         ..default()
     });
 
-    let cards_texture = asset_server.load("cards.png");
+    let cards_texture:Handle<Image> = asset_server.load("cards.png");
     //       commands.spawn(SpriteSheetBundle {
     //        texture_atlas: texture_atlas.add(TextureAtlas::from_grid(cards_texture, Vec2::new(106.0, 156.0),13,5,None,None)),
     //        sprite: TextureAtlasSprite {index: 1, ..default()},
@@ -65,35 +67,4 @@ fn setup(
     //        ..default()
     //    });
 
-    commands
-        .spawn(NodeBundle {
-           style: Style{
-                width: Val::Percent(100.0),
-                height: Val::Percent(100.0),
-                justify_content: JustifyContent::Center,
-                ..default()
-            },
-            ..default()
-        })
-        .with_children(|parent| {
-            parent.spawn(AtlasImageBundle {
-                texture_atlas: texture_atlas.add(TextureAtlas::from_grid(
-                    cards_texture,
-                    Vec2::new(106.0, 156.0),
-                    13,
-                    5,
-                    None,
-                    None,
-                )),
-
-                style: Style {
-                    width: Val::Px(106.0),
-                    height: Val::Px(156.0),
-                    align_self: AlignSelf::End,
-                    bottom: Val::Percent(10.0),
-                    ..default()
-                },
-                ..default()
-            });
-        });
 }
